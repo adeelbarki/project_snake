@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1477394242 source:/home/adeelbarki/Desktop/C_tutorial/project_snake/Project_snake/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<termios.h>
+	<tar.h>
+
