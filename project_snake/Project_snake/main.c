@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <termios.h>
-#include <tar.h>
-#define BLU "\x1B[34m"
-#define CYN "\x1B[36m"
-#define RED "\x1B[31m"
+#include <conio.h>
+#include <windows.h>
+//#define BLU "\x1B[34m"
+//#define CYN "\x1B[36m"
+//#define RED "\x1B[31m"
 #define N 20
 #define M 40
 
@@ -16,12 +16,12 @@ int main()
     int Field [N][M], i, j, x, y, speed, Gy, Tail, Head, Game, Frogs, score, a, b, highscore;
     char pos, Var;
 
-    printf( CYN "\n");
+    //printf( CYN "\n");
+    system("color B");
     printf("\n \n \n \n \n                            Snake Game    \n \n");
-    printf("                      Copyright: Adeel Barki. \n");
     printf("                            Have Fun!   \n \n \n \n \n") ;
-    //system("Pause");
-    char pb;
+    system("Pause");
+    /*char pb;
     struct termios tcattr;
     //Spacing of the ellipsis
     printf("Press any key to continue..... \n");
@@ -32,8 +32,8 @@ int main()
     tcattr.c_cc[VMIN] = 1;
     //Engage now
     tcsetattr(0, TCSANOW, &tcattr);
-    read(0, &pb, 1);
-    system("clear");
+    read(0, &pb, 1);*/
+    system("cls");
 
 
     FILE *f;
@@ -71,8 +71,8 @@ int main()
     }
 
     int getch_noblock(){
-        if(_kbhit())
-            return -getch();
+        if(kbhit())
+            return getch();
         else
             return -1;
 
@@ -81,7 +81,7 @@ int main()
     void Random(){
         a = 1 + rand()%17;
         b = 1 + rand()%37;
-        if(Frogs == 0 & Field [a][b] == 0){
+        if(Frogs = 0 & Field [a][b] == 0){
             Field [a][b] = -1;
             Frogs = 1;
             if (speed > 10 && score !=0)
@@ -93,9 +93,10 @@ int main()
 
     void Print(){
         for(i=0; i<=M+1; i++){
-            if(i == 0) printf("%c", 201);
+            if(i == 0)
+                printf("%c", 201);
             else if (i == M+1) printf("%c", 187);
-            else printf("%c, 205");
+            else printf("%c", 205);
         }
 
         printf("Current score: %d        HighScoree: %d", score, highscore);
@@ -115,7 +116,7 @@ int main()
                 if(Field[i][j] == -1)
                     printf("%c", 15);
                 if(j == M-1)
-                    printf("%c", 186);
+                    printf("%c\n", 186);
 
             }
         }
@@ -126,20 +127,21 @@ int main()
             else if(i == M+1)
                 printf("%c", 188);
             else
-                printf("%c, 205");
+                printf("%c", 205);
 
         }
     }
 
     void GameOver(){
         printf("\a");
-        sleep(1500);
-        system("Clear");
+        Sleep(1500);
+        system("Cls");
         if(score>highscore)
         {
             printf("New Highscore %d!!! \n \n", score);
             //system("pause")
-
+            system("pause");
+            /*
     //Spacing of the ellipsis
             tcgetattr(0, &tcattr);
     //Disable canonical mode, assumes we want line buffering
@@ -149,12 +151,12 @@ int main()
     //Engage now
             tcsetattr(0, TCSANOW, &tcattr);
             read(0, &pb, 1);
-
+            */
             f = fopen("high.txt", "w");
             fprintf(f, "%d", score);
             fclose(f);
             }
-        system("Clear");
+        system("Cls");
 
         printf("                      Game Over!! \n \n");
         printf("                       Score %d \n\n", score);
@@ -173,7 +175,7 @@ int main()
                 break;
             }
         }
-        system("Clear");
+        system("Cls");
 
     }
 
@@ -203,6 +205,8 @@ int main()
             y--;
             if(y==-1)
                 y = M-1;
+            if(Field[x][y] !=0 && Field[x][y] != -1)
+                GameOver();
             if(Field[x][y] == -1)
             {
                 score = score +5;
@@ -245,7 +249,8 @@ int main()
             Tail--;
             Frogs = 0;
         }
-
+        Head++;
+        Field[x][y] = Head;
         }
     }
 
@@ -254,14 +259,14 @@ int main()
 
     }
 
-    /*void ResetScreenPosition(){
+    void ResetScreenPosition(){
         HANDLE hOut;
         COORD Position;
-        hout = GetStdHandle(STD_OUTPUT_HANDLE);
+        hOut = GetStdHandle(STD_OUTPUT_HANDLE);
         Position.X = 0;
-        Position.Y 0;
-        SetConsolePosition(hout, Position);
-    }*/
+        Position.Y = 0;
+        SetConsoleCursorPosition(hOut, Position);
+    }
     snakeinitialization();
     while(Game == 0){
 
@@ -269,8 +274,8 @@ int main()
     Random();
     Pozition();
     TailRemove();
-    sleep(speed);
-    //ResetScreenPosition();
+    Sleep(speed);
+    ResetScreenPosition();
     }
 
     return 0;
